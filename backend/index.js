@@ -22,6 +22,7 @@ app.get("/get/weapons", (req,res)=>{
         res.send(result)
     })
 })
+
 app.get("/get/weapons/:id", (req,res)=>{
     const sqlSelect='SELECT * FROM weapons WHERE Weapon ="'+req.params.id+'"'
     db.query(sqlSelect, (err, result)=>{
@@ -36,7 +37,13 @@ app.get("/get/models", (req,res)=>{
         res.send(result)
     })
 })
-
+app.get("/get/models/:model/:stat", (req,res)=>{
+    const sqlSelect='SELECT '+req.params.stat+' FROM model WHERE Model = "'+req.params.model+'"'
+    db.query(sqlSelect, (err, result)=>{
+        console.log(result)
+        res.send(result)
+    })
+})
 app.get("/get/models/:id", (req,res)=>{
     const sqlSelect='SELECT * FROM model WHERE Model ="'+req.params.id+'"'
     db.query(sqlSelect, (err, result)=>{
