@@ -10,9 +10,9 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Sticky from 'react-stickynode';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -81,6 +81,26 @@ function App() {
     <div className="App">
       <HEADER></HEADER>
       Total Cost : {Cost} Point - Power level : {Power}
+
+        
+      <Sticky enabled={true} top="#header" bottomBoundary="#content" className="Sticky">
+        
+        {
+          list.length !==0 ? 
+          list.map((obj)=>{
+            n++
+            return(
+              <div value={n} key={obj+n}>{obj.model} 
+              <IconButton aria-label="delete" key={obj+n} value={n} data={obj} onClick={()=>removeFromList(obj.id, obj.model)}>
+              <DeleteIcon />
+              </IconButton>
+              </div>
+            )
+          })
+          :
+          ""
+        }
+          </Sticky>
       <FormControl className={useStyles.formControl}>
         <InputLabel id="demo-simple-select-label">Weapon</InputLabel>
         <Select
@@ -115,23 +135,9 @@ weaponsList={weaponsList}>
     )
   })
 }
+
 <div>
 
-      {
-        list.length !==0 ? 
-        list.map((obj)=>{
-          n++
-          return(
-            <div value={n} key={obj+n}>{obj.model} 
-            <IconButton aria-label="delete" key={obj+n} value={n} data={obj} onClick={()=>removeFromList(obj.id, obj.model)}>
-            <DeleteIcon />
-            </IconButton>
-            </div>
-          )
-        })
-        :
-        ""
-      }
 </div>
 </div>
   );
