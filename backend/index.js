@@ -1,5 +1,4 @@
 const express = require('express')
-const bodyParser = require('body-parser')
 const app = express()
 const cors = require('cors')
 const mysql = require("mysql")
@@ -32,6 +31,13 @@ app.get("/get/weapons/:id", (req,res)=>{
 })
 app.get("/get/models", (req,res)=>{
     const sqlSelect="SELECT * FROM model"
+    db.query(sqlSelect, (err, result)=>{
+        console.log(result)
+        res.send(result)
+    })
+})
+app.get("/get/models/:type", (req,res)=>{
+    const sqlSelect='SELECT * FROM model WHERE Type="'+req.params.type+'"'
     db.query(sqlSelect, (err, result)=>{
         console.log(result)
         res.send(result)

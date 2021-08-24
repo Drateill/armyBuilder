@@ -4,3 +4,23 @@
   border: solid 1px;
   margin: 20px;
 }
+
+.Header{
+  background-image: url("assets/Warhammer40000Logo.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 100%;
+  height: 37vh;
+}
+
+.App{
+  display: flex;
+  flex-direction: column;
+
+}
+
+.weaponSelect, .modelSelect, .modelAdd{
+  width: 20vh;
+  margin: auto;
+}
+

@@ -5,7 +5,7 @@ const weapon = (weapon) => {
     var selected=weapon.weapon
     if (selected === "Select a weapon"){
         return (
-            <div>Nothing to see</div>
+            <div></div>
         )
     } else {
 
