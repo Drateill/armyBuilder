@@ -10,6 +10,9 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -30,6 +33,7 @@ function App() {
   const [modelsList, setmodelsList] = useState([])
   const [list, setlist] = useState([])
   const [Cost, setCost]= useState(0)
+  const [Power, setPower]=useState(0)
   const [j, setj]= useState(1)
 
 
@@ -55,6 +59,7 @@ function App() {
       id:j}])
       setj(j+1)
     setCost(Cost + modelsList.filter(item => item.Model ===model )[0].Point)
+    setPower(Power + modelsList.filter(item => item.Model ===model )[0].Power)
     }
   }
 
@@ -62,6 +67,8 @@ function App() {
     const newList = list.filter((item)=> item.id !== id)
     setlist(newList)
     setCost(Cost - modelsList.filter(item => item.Model ===model )[0].Point)
+    setPower(Power - modelsList.filter(item => item.Model ===model )[0].Power)
+
   }
   var n = 0;
 
@@ -73,7 +80,7 @@ function App() {
   return (
     <div className="App">
       <HEADER></HEADER>
-      Total Cost : {Cost}
+      Total Cost : {Cost} Point - Power level : {Power}
       <FormControl className={useStyles.formControl}>
         <InputLabel id="demo-simple-select-label">Weapon</InputLabel>
         <Select
@@ -109,13 +116,17 @@ weaponsList={weaponsList}>
   })
 }
 <div>
-  
+
       {
         list.length !==0 ? 
         list.map((obj)=>{
           n++
           return(
-            <div value={n} key={obj+n}>{obj.model} <button key={obj+n} value={n} data={obj} onClick={()=>removeFromList(obj.id, obj.model)}>X</button></div>
+            <div value={n} key={obj+n}>{obj.model} 
+            <IconButton aria-label="delete" key={obj+n} value={n} data={obj} onClick={()=>removeFromList(obj.id, obj.model)}>
+            <DeleteIcon />
+            </IconButton>
+            </div>
           )
         })
         :
