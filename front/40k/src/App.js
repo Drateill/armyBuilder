@@ -1,7 +1,7 @@
 import './App.css';
 import Axios from 'axios'
 import React, {useState, useEffect} from "react";
-// import MODEL from "./Components/model.js"
+import MODEL from "./Components/model.js"
 import WEAPON from "./Components/weapon.js"
 import HEADER from './Components/Header.js'
 // import weapon from './Components/weapon.js';
@@ -27,7 +27,6 @@ function App() {
 
   const [weaponsList, setweaponsList] = useState([])
   const [weaponSelected, setweaponSelected]=useState("")
-  const [modelSelected, setmodelSelected]=useState("")
   const [modelsList, setmodelsList] = useState([])
   const [list, setlist] = useState([])
   const [Cost, setCost]= useState(0)
@@ -49,19 +48,14 @@ function App() {
   const handleSelectWeapon = (e) => {
     setweaponSelected(e.target.value)
   }
-
-  const handleSelectModel = (e) => {
-    setmodelSelected(e.target.value)
-  }
-  const addToList = ()=>{
-    if (modelSelected !==""){
+  const addToList = (model)=>{
+    if (model !==""){
       setlist(list => [...list,
-      {model:modelSelected,
+      {model:model,
       id:j}])
       setj(j+1)
-    setCost(Cost + modelsList.filter(item => item.Model ===modelSelected )[0].Point)
+    setCost(Cost + modelsList.filter(item => item.Model ===model )[0].Point)
     }
-    
   }
 
   const removeFromList = (id, model) =>{
@@ -69,7 +63,6 @@ function App() {
     setlist(newList)
     setCost(Cost - modelsList.filter(item => item.Model ===model )[0].Point)
   }
-  var i = 0;
   var n = 0;
 
   if(weaponsList.length===0){
@@ -80,17 +73,7 @@ function App() {
   return (
     <div className="App">
       <HEADER></HEADER>
-      {/* <select name="weapons" value={weaponSelected} onChange={handleSelectWeapon} className="weaponSelect">
-        <option value="Select a weapon">--Select a weapon--</option>
-      {
-        weaponsList.map((weapon)=>{  
-          i++;
-          return(
-          <option value={weapon.Weapon} key={weapon.Weapon+i}>{weapon.Weapon}</option>          
-          )
-        })
-      }  
-      </select> */}
+      Total Cost : {Cost}
       <FormControl className={useStyles.formControl}>
         <InputLabel id="demo-simple-select-label">Weapon</InputLabel>
         <Select
@@ -113,23 +96,20 @@ weapon = {weaponSelected}
 weaponsList={weaponsList}> 
 </WEAPON>
 
-<select name="model" value={modelSelected} onChange={handleSelectModel} className="modelSelect">
-        <option value="Select a weapon">--Select a Model--</option>
-      {
-        modelsList.map((model)=>{  
-          i++;
-          return(
-          <option value={model.Model} key={model.Model+i}>{model.Model}</option>          
-          )
-        })
-      }  
-</select>
-
 {
-  modelSelected !== "Select a model" ? <button onClick={addToList} className="modelAdd">Add to list</button>:""
+  modelsList.map((model)=>{
+    return(
+      <MODEL
+      model={model}
+      key={model.Model}
+      addToList={addToList}
+      />
+
+    )
+  })
 }
 <div>
-  Total Cost : {Cost}
+  
       {
         list.length !==0 ? 
         list.map((obj)=>{
@@ -141,7 +121,7 @@ weaponsList={weaponsList}>
         :
         ""
       }
-      </div>
+</div>
 </div>
   );
 }
