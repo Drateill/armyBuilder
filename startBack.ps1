@@ -1,3 +1,3 @@
-﻿$backPath="E:\40k\armyBuilder\backend\index.js"
+﻿$backPath="backend\index.js"
 
 nodemon $backPath
