@@ -2,14 +2,14 @@ import './App.css';
 import Axios from 'axios'
 import React, {useState, useEffect} from "react";
 import MODEL from "./Components/model.js"
-import WEAPON from "./Components/weapon.js"
+// import WEAPON from "./Components/weapon.js"
 import HEADER from './Components/Header.js'
 // import weapon from './Components/weapon.js';
 import { makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+// import InputLabel from '@material-ui/core/InputLabel';
+// import MenuItem from '@material-ui/core/MenuItem';
+// import FormControl from '@material-ui/core/FormControl';
+// import Select from '@material-ui/core/Select';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Sticky from 'react-stickynode';
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 function App() {
 
   const [weaponsList, setweaponsList] = useState([])
-  const [weaponSelected, setweaponSelected]=useState("")
+  // const [weaponSelected, setweaponSelected]=useState("")
   const [modelsList, setmodelsList] = useState([])
   const [list, setlist] = useState([])
   const [Cost, setCost]= useState(0)
@@ -49,9 +49,9 @@ function App() {
     })
   }, [])
 
-  const handleSelectWeapon = (e) => {
-    setweaponSelected(e.target.value)
-  }
+  // const handleSelectWeapon = (e) => {
+  //   setweaponSelected(e.target.value)
+  // }
   const addToList = (model)=>{
     if (model !==""){
       setlist(list => [...list,
@@ -80,11 +80,10 @@ function App() {
   return (
     <div className="App">
       <HEADER></HEADER>
-      Total Cost : {Cost} Point - Power level : {Power}
 
         
       <Sticky enabled={true} top="#header" bottomBoundary="#content" className="Sticky">
-        
+      Total Cost : {Cost} Point - Power level : {Power}
         {
           list.length !==0 ? 
           list.map((obj)=>{
@@ -101,7 +100,7 @@ function App() {
           ""
         }
           </Sticky>
-      <FormControl className={useStyles.formControl}>
+      {/* <FormControl className={useStyles.formControl}>
         <InputLabel id="demo-simple-select-label">Weapon</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -121,7 +120,7 @@ function App() {
 <WEAPON 
 weapon = {weaponSelected} 
 weaponsList={weaponsList}> 
-</WEAPON>
+</WEAPON> */}
 
 {
   modelsList.map((model)=>{
