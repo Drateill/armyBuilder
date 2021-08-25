@@ -60,16 +60,17 @@ function App() {
 
 
   var n = 0;
-
+//==============Loading=================
   if(weaponsList.length===0){
     return (
       <div>Loading ... Please wait</div>
     )
   }
+// =====================================
   return (
     <div className="App">
       <HEADER></HEADER>
-{/* Selecteur de type  */}
+{/*========== Selecteur de type========== */}
 <select onChange={handletypeSelected}>
 <option value="">---Select a type---</option>
 
@@ -81,7 +82,7 @@ function App() {
     })
   }
 </select>
-{/* ================== */}
+{/* ===================================== */}
 
 {/* Affichage des figurines par rapport au type selectionné */}
 {
