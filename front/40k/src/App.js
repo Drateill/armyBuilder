@@ -2,34 +2,15 @@ import './App.css';
 import Axios from 'axios'
 import React, {useState, useEffect} from "react";
 import MODEL from "./Components/model.js"
-// import WEAPON from "./Components/weapon.js"
 import HEADER from './Components/Header.js'
-// import weapon from './Components/weapon.js';
-import { makeStyles } from '@material-ui/core/styles';
-// import InputLabel from '@material-ui/core/InputLabel';
-// import MenuItem from '@material-ui/core/MenuItem';
-// import FormControl from '@material-ui/core/FormControl';
-// import Select from '@material-ui/core/Select';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Sticky from 'react-stickynode';
 
 
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-}));
-
-
 function App() {
 
   const [weaponsList, setweaponsList] = useState([])
-  // const [weaponSelected, setweaponSelected]=useState("")
   const [modelsList, setmodelsList] = useState([])
   const [list, setlist] = useState([])
   const [Cost, setCost]= useState(0)
@@ -49,9 +30,6 @@ function App() {
     })
   }, [])
 
-  // const handleSelectWeapon = (e) => {
-  //   setweaponSelected(e.target.value)
-  // }
   const addToList = (model)=>{
     if (model !==""){
       setlist(list => [...list,
@@ -101,27 +79,7 @@ function App() {
             ""
           }
             </Sticky>
-        {/* <FormControl className={useStyles.formControl}>
-          <InputLabel id="demo-simple-select-label">Weapon</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={weaponSelected}
-            onChange={handleSelectWeapon}
-          >
-            {
-              weaponsList.map((weapon)=>{
-                return (
-                  <MenuItem key={weapon.Weapon} value={weapon.Weapon}>{weapon.Weapon}</MenuItem>
-                )
-              })
-            }
-          </Select>
-        </FormControl>
-        <WEAPON 
-        weapon = {weaponSelected} 
-        weaponsList={weaponsList}> 
-        </WEAPON> */}
+
         
         <div className="modelList">
           {

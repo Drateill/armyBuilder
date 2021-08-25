@@ -9,13 +9,11 @@ const model = (props) => {
     var addToList= props.addToList
     return (
         <div >
-            <img src={imgSrc} className="logoType"></img>
+            <img src={imgSrc} className="logoType" alt={fig.Model}></img>
             {fig.Model} | Power : {fig.Power} Point : {fig.Point}
             <IconButton onClick={()=>addToList(fig.Model)}  className="modelAdd">
             <AddIcon />
             </IconButton>
-            <br></br>
-            M: {fig.Movement} inches WS : {fig.WS} BS : {fig.BS} S : {fig.S} T : {fig.T} W: {fig.W} A : {fig.A} LD : {fig.LD} SV : {fig.SV} 
         </div>
     )
 }
