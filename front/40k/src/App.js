@@ -82,63 +82,63 @@ function App() {
       <HEADER></HEADER>
 
         
-      <Sticky enabled={true} top="#header" bottomBoundary="#content" className="Sticky">
-      Total Cost : {Cost} Point - Power level : {Power}
-        {
-          list.length !==0 ? 
-          list.map((obj)=>{
-            n++
-            return(
-              <div value={n} key={obj+n}>{obj.model} 
-              <IconButton aria-label="delete" key={obj+n} value={n} data={obj} onClick={()=>removeFromList(obj.id, obj.model)}>
-              <DeleteIcon />
-              </IconButton>
-              </div>
-            )
-          })
-          :
-          ""
-        }
-          </Sticky>
-      {/* <FormControl className={useStyles.formControl}>
-        <InputLabel id="demo-simple-select-label">Weapon</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={weaponSelected}
-          onChange={handleSelectWeapon}
-        >
+      <div className="Container">
+        <Sticky enabled={true} top="#header" bottomBoundary="#content" className="Sticky">
+        Total Cost : {Cost} Point - Power level : {Power}
           {
-            weaponsList.map((weapon)=>{
-              return (
-                <MenuItem key={weapon.Weapon} value={weapon.Weapon}>{weapon.Weapon}</MenuItem>
+            list.length !==0 ?
+            list.map((obj)=>{
+              n++
+              return(
+                <div value={n} key={obj+n}>{obj.model}
+                <IconButton aria-label="delete" key={obj+n} value={n} data={obj} onClick={()=>removeFromList(obj.id, obj.model)}>
+                <DeleteIcon />
+                </IconButton>
+                </div>
+              )
+            })
+            :
+            ""
+          }
+            </Sticky>
+        {/* <FormControl className={useStyles.formControl}>
+          <InputLabel id="demo-simple-select-label">Weapon</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={weaponSelected}
+            onChange={handleSelectWeapon}
+          >
+            {
+              weaponsList.map((weapon)=>{
+                return (
+                  <MenuItem key={weapon.Weapon} value={weapon.Weapon}>{weapon.Weapon}</MenuItem>
+                )
+              })
+            }
+          </Select>
+        </FormControl>
+        <WEAPON 
+        weapon = {weaponSelected} 
+        weaponsList={weaponsList}> 
+        </WEAPON> */}
+        
+        <div className="modelList">
+          {
+            modelsList.map((model)=>{
+              return(
+          <MODEL
+          model={model}
+          key={model.Model}
+          addToList={addToList}
+          />
+          
               )
             })
           }
-        </Select>
-      </FormControl>
-<WEAPON 
-weapon = {weaponSelected} 
-weaponsList={weaponsList}> 
-</WEAPON> */}
-
-{
-  modelsList.map((model)=>{
-    return(
-      <MODEL
-      model={model}
-      key={model.Model}
-      addToList={addToList}
-      />
-
-    )
-  })
-}
-
-<div>
-
-</div>
-</div>
+        </div>
+        </div>
+      </div>
   );
 }
 

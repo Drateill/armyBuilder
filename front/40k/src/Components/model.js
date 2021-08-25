@@ -5,17 +5,17 @@ import IconButton from '@material-ui/core/IconButton';
 
 const model = (props) => {
     var fig = props.model
+    var imgSrc ='assets/Logo/'+fig.Type+'.png'
     var addToList= props.addToList
     return (
         <div >
-            {fig.Model}
-            <IconButton size="small" variant="contained" onClick={()=>addToList(fig.Model)}  className="modelAdd">
+            <img src={imgSrc} className="logoType"></img>
+            {fig.Model} | Power : {fig.Power} Point : {fig.Point}
+            <IconButton onClick={()=>addToList(fig.Model)}  className="modelAdd">
             <AddIcon />
             </IconButton>
             <br></br>
-            Stats : 
-            <br></br>
-            M: {fig.Movement} inches WS : {fig.WS} BS : {fig.BS} S : {fig.S} T : {fig.T} W: {fig.W} A : {fig.A} LD : {fig.LD} SV : {fig.SV} Power : {fig.Power} Point : {fig.Point} Type : {fig.Type}
+            M: {fig.Movement} inches WS : {fig.WS} BS : {fig.BS} S : {fig.S} T : {fig.T} W: {fig.W} A : {fig.A} LD : {fig.LD} SV : {fig.SV} 
         </div>
     )
 }

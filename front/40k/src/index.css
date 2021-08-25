@@ -13,11 +13,22 @@ code {
     monospace;
 }
 
+.Container{
+  display:grid;
+  grid-template-columns:700px 50px 50px 100px;
+  grid-template-rows: auto;
+}
 
 .Sticky{
     text-align: right;
+    grid-area: 1 / col4-start / last-line / 6;
 }
 
 .App{
   color:white;
+}
+
+.logoType{
+  width: 35px;
+  height: 35px;
 }
