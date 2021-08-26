@@ -21,12 +21,14 @@ function App() {
   const [j, setj]= useState(1)
 
 
+  //Récupération des données d'armes
 
   useEffect(()=>{
     Axios.get('http://192.168.0.186:3001/get/weapons').then((response)=>{
       setweaponsList(response.data)
     })
   }, [])
+  //Récupération des données de figurines
   useEffect(()=>{
     Axios.get('http://192.168.0.186:3001/get/models').then((response)=>{
       setmodelsList(response.data)
@@ -77,7 +79,7 @@ function App() {
   {
     grouped.map((item)=>{
       return(
-        <option value={item.type}>{item.type}</option>
+        <option value={item.type} key={item.type}>{item.type}</option>
       )
     })
   }
