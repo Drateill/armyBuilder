@@ -1,15 +1,8 @@
-.weapon{
-  display: inline-block;
-  flex-direction:row;
-  border: solid 1px;
-  margin: 20px;
-}
-
 .Header{
   text-align: center;
 }
 
-.weaponSelect, .modelSelect {
+.modelSelect {
   width: 20vh;
   margin: auto;
 }

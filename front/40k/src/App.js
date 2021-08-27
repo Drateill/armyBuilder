@@ -1,11 +1,12 @@
 import './App.css';
 import Axios from 'axios'
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import MODEL from "./Components/model.js"
 import HEADER from './Components/Header.js'
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Sticky from 'react-stickynode';
+import Collapsible from 'react-collapsible';
 
 const _ = require('lodash');
 
@@ -16,113 +17,142 @@ function App() {
   const [modelsList, setmodelsList] = useState([])
   const [typeSelected, settypeSelected] = useState([])
   const [list, setlist] = useState([])
-  const [Cost, setCost]= useState(0)
-  const [Power, setPower]=useState(0)
-  const [j, setj]= useState(1)
+  const [Cost, setCost] = useState(0)
+  const [Power, setPower] = useState(0)
+  const [j, setj] = useState(1)
 
 
   //Récupération des données d'armes
 
-  useEffect(()=>{
-    Axios.get('http://192.168.0.186:3001/get/weapons').then((response)=>{
+  useEffect(() => {
+    Axios.get('http://192.168.0.186:3001/get/weapons').then((response) => {
       setweaponsList(response.data)
     })
   }, [])
   //Récupération des données de figurines
-  useEffect(()=>{
-    Axios.get('http://192.168.0.186:3001/get/models').then((response)=>{
+  useEffect(() => {
+    Axios.get('http://192.168.0.186:3001/get/models').then((response) => {
       setmodelsList(response.data)
     })
   }, [])
 
-  const addToList = (model)=>{
-    if (model !==""){
+  const addToList = (model) => {
+    if (model !== "") {
       setlist(list => [...list,
-      {model:model,
-      id:j}])
-      setj(j+1)
-    setCost(Cost + modelsList.filter(item => item.Model ===model )[0].Point)
-    setPower(Power + modelsList.filter(item => item.Model ===model )[0].Power)
+      {
+        model: model,
+        id: j
+      }])
+      setj(j + 1)
+      setCost(Cost + modelsList.filter(item => item.Model === model)[0].Point)
+      setPower(Power + modelsList.filter(item => item.Model === model)[0].Power)
     }
   }
 
-  const removeFromList = (id, model) =>{
-    const newList = list.filter((item)=> item.id !== id)
+  const removeFromList = (id, model) => {
+    const newList = list.filter((item) => item.id !== id)
     setlist(newList)
-    setCost(Cost - modelsList.filter(item => item.Model ===model )[0].Point)
-    setPower(Power - modelsList.filter(item => item.Model ===model )[0].Power)
+    setCost(Cost - modelsList.filter(item => item.Model === model)[0].Point)
+    setPower(Power - modelsList.filter(item => item.Model === model)[0].Power)
 
   }
 
-  const handletypeSelected= (e)=>{
+  const handletypeSelected = (e) => {
     settypeSelected(e.target.value)
   }
+  const clear = ()=>{
+    setlist([])
+    setCost(0)
+    setPower(0)
+  }
 
-  var grouped = _(modelsList).groupBy('Type').map((model, type)=>({type: type, model:_.map(model, 'Model')})).value();
+  var grouped = _(modelsList).groupBy('Type').map((model, type) => ({ type: type, model: _.map(model, 'Model') })).value();
 
 
   var n = 0;
-//==============Loading=================
-  if(weaponsList.length===0){
+  //==============Loading=================
+  if (weaponsList.length === 0) {
     return (
       <div>Loading ... Please wait</div>
     )
   }
-// =====================================
+  // =====================================
   return (
     <div className="App">
       <HEADER></HEADER>
-{/*========== Selecteur de type========== */}
-<select onChange={handletypeSelected}>
-<option value="">---Select a type---</option>
+      {/*========== Selecteur de type========== */}
+      <select onChange={handletypeSelected} className="selectType">
+        <option value="">---Select a type---</option>
 
-  {
-    grouped.map((item)=>{
-      return(
-        <option value={item.type} key={item.type}>{item.type}</option>
-      )
-    })
-  }
-</select>
-{/* ===================================== */}
+        {
+          grouped.map((item) => {
+            return (
+              <option value={item.type} key={item.type}>{item.type}</option>
+            )
+          })
+        }
+      </select>
+      {/* ===================================== */}
 
-{/* Affichage des figurines par rapport au type selectionné */}
-{
-  modelsList.filter(obj=> obj.Type===typeSelected).map((model)=>{
-    return(
-      <MODEL
-          model={model}
-          key={model.Model}
-          addToList={addToList}
-          />
-    )
-  })
-}     
-{/*==========================================================*/}
+      {/* Affichage des figurines par rapport au type selectionné */}
+
+      {/*==========================================================*/}
       <div className="Container">
 
-        {/* Affichage temporaire de la composition de l'armée */}
-        <Sticky enabled={true} top="#header" bottomBoundary="#content" className="Sticky">
-        Total Cost : {Cost} Point - Power level : {Power}
+        <div className="listModel">
+
           {
-            list.length !==0 ?
-            list.map((obj)=>{
-              n++
-              return(
-                <div value={n} key={obj+n}>{obj.model}
-                <IconButton aria-label="delete" key={obj+n} value={n} data={obj} onClick={()=>removeFromList(obj.id, obj.model)}>
-                <DeleteIcon />
-                </IconButton>
-                </div>
+            modelsList.filter(obj => obj.Type === typeSelected).map((model) => {
+              return (
+                <MODEL
+                  model={model}
+                  key={model.Model}
+                  addToList={addToList}
+                />
               )
             })
-            :
-            ""
           }
-            </Sticky>
-            {/* ============================================= */}
         </div>
+
+        {/* Affichage temporaire de la composition de l'armée */}
+        <Sticky enabled={true} top="#header" bottomBoundary="#content">
+          Clear :  <IconButton aria-label="delete" onClick={() => clear()}>
+                        <DeleteIcon />
+                      </IconButton>
+          <Collapsible 
+          trigger={"Total cost : "+Cost+"Point | Power level :"+Power} 
+          className="cost" 
+          open="true"
+          openedClassName="openCost"
+          triggerClassName ="triggerCloseCost"
+          triggerOpenedClassName ="triggerOpenCost"
+          class
+          >
+          <div className="costLevel">         
+            {/* Total Cost : {Cost} Point - Power level : {Power} */}
+            </div>
+          <div className="armyList">
+            {
+              list.length !== 0 ?
+                list.map((obj) => {
+                  n++
+                  return (
+                    <div value={n} key={obj + n}>{obj.model}
+                      <IconButton aria-label="delete" key={obj + n} value={n} data={obj} onClick={() => removeFromList(obj.id, obj.model)}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </div>
+                  )
+                })
+                :
+                ""
+            }
+          </div>
+          </Collapsible>
+        </Sticky>
+        {/* ============================================= */}
       </div>
+    </div>
   );
 }
 
