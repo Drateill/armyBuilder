@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
-html{
-  height: 100%;
-}
+/* html{
+  height: 100vh;
+} */
 body {
   margin: 0;
   /* box-sizing: border-box; */
@@ -12,7 +12,7 @@ body {
   background-image: linear-gradient(to bottom, #2d3436, #2e3b3d, #2e4144, #2f484a, #2f4f4f);
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100%;
+  min-height: 100vh;
 }
 
 .App {
@@ -33,22 +33,6 @@ body {
   margin-left: 15%;
 }
 
-.costLevel {
-  font-size: large;
-}
-
-.armyList {
-  display: flex;
-  flex-direction: column;
-}
-
-.armyList>div {
-  background-color: whitesmoke;
-  border-radius: 10px;
-  margin: 10px;
-  color: #2d3436;
-  text-align: end;
-}
 
 .logoType {
   width: 35px;
@@ -63,47 +47,3 @@ body {
     align-items: center;
   }
 }
-.openCost{
-background-color: rgb(143, 143, 143);
-border: solid 1px black;
-}
-.triggerOpenCost{
-  background-color:black ;
-} 
-
-
-.Collapsible {
-  background-color:rgb(143, 143, 143) }
-
-.Collapsible__contentInner {
-  padding: 10px;
-  border-top: 0; }
-  .Collapsible__contentInner p {
-    margin-bottom: 10px;
-    font-size: 14px;
-    line-height: 20px; }
-    .Collapsible__contentInner p:last-child {
-      margin-bottom: 0; }
-
-.Collapsible__trigger {
-  display: block;
-  font-weight: 400;
-  text-decoration: none;
-  color: #333333;
-  position: relative;
-  padding: 0px 20px 0px 20px;
-  background: black;
-  color: white; }
-  .Collapsible__trigger:after {
-    font-family: 'FontAwesome';
-    content: '^';
-    position: absolute;
-    right: 5px;
-    top: 0px;
-    display: block;
-    transition: transform 300ms; }
-  .Collapsible__trigger.is-open:after {
-    transform: rotateZ(180deg); }
-  .Collapsible__trigger.is-disabled {
-    opacity: 0.5;
-    background-color: grey; }

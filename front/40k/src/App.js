@@ -115,10 +115,7 @@ function App() {
         </div>
 
         {/* Affichage temporaire de la composition de l'armée */}       
-          <div className="armyList">
-           
-          </div>          
-          <div>
+          <div className="navBar">
           <Navbar
             list={list}
             removeFromList={removeFromList}

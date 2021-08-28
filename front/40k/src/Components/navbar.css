@@ -7,23 +7,33 @@
     border:solid 1px black;
     border-radius: 10px;
     transition: all .7s ease-in;
-    width:35%;
+    width:30%;
     position: fixed;
     top: 30%;
     right: 0;
     overflow-y: scroll;
     height:300px;
+    text-align: end;
   }
   .scrolled{
-    width:35%;
+    width:30%;
     height:300px;
     position: fixed;
     top: 30%;
     right: 0;
     overflow-y: scroll;
+    text-align: end;
   }
   .navigation{
-      margin-top: 10px;
-      margin-left: 5px;
-      flex-direction: column;
+    display: flex;
+    flex-direction: column;
+    text-align: end;
+  }
+
+  .model{
+    background-color: whitesmoke;
+    border-radius: 10px;
+    margin: 10px;
+    color: #2d3436;
+    text-align: end;
   }

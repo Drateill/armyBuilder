@@ -1,5 +1,7 @@
 import React,{useEffect} from 'react';
 import './navbar.css';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 
 const Navbar=(props) => {
@@ -26,12 +28,17 @@ const Navbar=(props) => {
     x.push('scrolled');
   }
   return (
-    <header className={x.join(" ")}>    
+    <header className={x.join(" ")}>  
+    <button onClick={() => clear()}>Clear list</button> 
         <nav className="navigation">
-            <button onClick={() => clear()}>Clear list</button>
                 {list.map((item)=>{
                     return(
-                        <div key={item.id}>{item.model} <button onClick={() => removeFromList(item.id, item.model)}> Remove </button></div>
+                        <div className="model" key={item.id}>{item.model} 
+                        <IconButton onClick={() => removeFromList(item.id, item.model)}>
+                            <DeleteIcon />
+                        </IconButton>
+                        {/* <button onClick={() => removeFromList(item.id, item.model)}> Remove </button> */}
+                        </div>
                     )
                 })}
         </nav>
