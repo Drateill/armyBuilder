@@ -5,8 +5,8 @@ import MODEL from "./Components/model.js"
 import HEADER from './Components/Header.js'
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-import Sticky from 'react-stickynode';
 import Collapsible from 'react-collapsible';
+import Navbar from './Components/Navbar';
 
 const _ = require('lodash');
 
@@ -21,6 +21,8 @@ function App() {
   const [Power, setPower] = useState(0)
   const [j, setj] = useState(1)
 
+
+  
 
   //Récupération des données d'armes
 
@@ -68,8 +70,6 @@ function App() {
 
   var grouped = _(modelsList).groupBy('Type').map((model, type) => ({ type: type, model: _.map(model, 'Model') })).value();
 
-
-  var n = 0;
   //==============Loading=================
   if (weaponsList.length === 0) {
     return (
@@ -114,42 +114,17 @@ function App() {
           }
         </div>
 
-        {/* Affichage temporaire de la composition de l'armée */}
-        <Sticky enabled={true} top="#header" bottomBoundary="#content">
-          Clear :  <IconButton aria-label="delete" onClick={() => clear()}>
-                        <DeleteIcon />
-                      </IconButton>
-          <Collapsible 
-          trigger={"Total cost : "+Cost+"Point | Power level :"+Power} 
-          className="cost" 
-          open="true"
-          openedClassName="openCost"
-          triggerClassName ="triggerCloseCost"
-          triggerOpenedClassName ="triggerOpenCost"
-          class
-          >
-          <div className="costLevel">         
-            {/* Total Cost : {Cost} Point - Power level : {Power} */}
-            </div>
+        {/* Affichage temporaire de la composition de l'armée */}       
           <div className="armyList">
-            {
-              list.length !== 0 ?
-                list.map((obj) => {
-                  n++
-                  return (
-                    <div value={n} key={obj + n}>{obj.model}
-                      <IconButton aria-label="delete" key={obj + n} value={n} data={obj} onClick={() => removeFromList(obj.id, obj.model)}>
-                        <DeleteIcon />
-                      </IconButton>
-                    </div>
-                  )
-                })
-                :
-                ""
-            }
-          </div>
-          </Collapsible>
-        </Sticky>
+           
+          </div>          
+          <div>
+          <Navbar
+            list={list}
+            removeFromList={removeFromList}
+            clear={clear}
+            />
+            </div>
         {/* ============================================= */}
       </div>
     </div>

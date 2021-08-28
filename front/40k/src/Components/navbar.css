@@ -1,0 +1,29 @@
+.navbar{
+    min-height: 6vh;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    background-color:rgb(143,143,143) ;
+    border:solid 1px black;
+    border-radius: 10px;
+    transition: all .7s ease-in;
+    width:35%;
+    position: fixed;
+    top: 30%;
+    right: 0;
+    overflow-y: scroll;
+    height:300px;
+  }
+  .scrolled{
+    width:35%;
+    height:300px;
+    position: fixed;
+    top: 30%;
+    right: 0;
+    overflow-y: scroll;
+  }
+  .navigation{
+      margin-top: 10px;
+      margin-left: 5px;
+      flex-direction: column;
+  }

@@ -4,7 +4,7 @@ html{
 }
 body {
   margin: 0;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   padding: 25px;
   font-family: 'Open Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -12,6 +12,7 @@ body {
   background-image: linear-gradient(to bottom, #2d3436, #2e3b3d, #2e4144, #2f484a, #2f4f4f);
   background-repeat: no-repeat;
   background-size: cover;
+  height: 100%;
 }
 
 .App {
@@ -19,6 +20,7 @@ body {
 }
 
 .Container {
+  height: 100%;
   display: flex;
   justify-content: space-around;
 }
@@ -60,15 +62,6 @@ body {
     flex-direction: column;
     align-items: center;
   }
-  /* .costLevel::before {
-    content: "";
-    position: absolute;
-    width: 90%;
-    height: 2px;
-    background-color: whitesmoke;
-    transform: translateY(-15px);
-  } */
-  
 }
 .openCost{
 background-color: rgb(143, 143, 143);
