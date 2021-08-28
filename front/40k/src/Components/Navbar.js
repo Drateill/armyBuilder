@@ -33,11 +33,10 @@ const Navbar=(props) => {
         <nav className="navigation">
                 {list.map((item)=>{
                     return(
-                        <div className="model" key={item.id}>{item.model} 
+                        <div className="model" key={item.id}>{item.model} {item.model==="Kabalite Warriors ( 4models squad + 1 sybarite )" ? <button>add 5 more</button>:""}
                         <IconButton onClick={() => removeFromList(item.id, item.model)}>
                             <DeleteIcon />
                         </IconButton>
-                        {/* <button onClick={() => removeFromList(item.id, item.model)}> Remove </button> */}
                         </div>
                     )
                 })}

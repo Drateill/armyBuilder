@@ -3,9 +3,6 @@ import Axios from 'axios'
 import React, { useState, useEffect } from "react";
 import MODEL from "./Components/model.js"
 import HEADER from './Components/Header.js'
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import Collapsible from 'react-collapsible';
 import Navbar from './Components/Navbar';
 
 const _ = require('lodash');
@@ -16,6 +13,7 @@ function App() {
   const [weaponsList, setweaponsList] = useState([])
   const [modelsList, setmodelsList] = useState([])
   const [typeSelected, settypeSelected] = useState([])
+  const [counted, setcounted] = useState([])
   const [list, setlist] = useState([])
   const [Cost, setCost] = useState(0)
   const [Power, setPower] = useState(0)
@@ -56,6 +54,10 @@ function App() {
     setlist(newList)
     setCost(Cost - modelsList.filter(item => item.Model === model)[0].Point)
     setPower(Power - modelsList.filter(item => item.Model === model)[0].Power)
+
+  }
+
+  const exportList = (model)=>{
 
   }
 
