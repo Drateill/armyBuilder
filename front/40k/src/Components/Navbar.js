@@ -7,7 +7,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 const Navbar=(props) => {
     const list= props.list
     const removeFromList=props.removeFromList
-    const clear = props.clear
   const [scrolled,setScrolled]=React.useState(false);
 
   const handleScroll=() => {
@@ -19,6 +18,7 @@ const Navbar=(props) => {
       setScrolled(false);
     }
   }
+
   useEffect(() => {
     window.addEventListener('scroll',handleScroll)
   })
@@ -29,11 +29,11 @@ const Navbar=(props) => {
   }
   return (
     <header className={x.join(" ")}>  
-    <button onClick={() => clear()}>Clear list</button> 
+    
         <nav className="navigation">
                 {list.map((item)=>{
                     return(
-                        <div className="model" key={item.id}>{item.model} {item.model==="Kabalite Warriors ( 4models squad + 1 sybarite )" ? <button>add 5 more</button>:""}
+                        <div className="model" key={item.id}>{item.model} Nombre dans la liste : {list.filter(obj=>obj.model === item).length}
                         <IconButton onClick={() => removeFromList(item.id, item.model)}>
                             <DeleteIcon />
                         </IconButton>

@@ -9,17 +9,17 @@
     transition: all .7s ease-in;
     width:30%;
     position: fixed;
-    top: 30%;
+    top: 0;
     right: 0;
     overflow-y: scroll;
-    height:300px;
+    height:100%;
     text-align: end;
   }
   .scrolled{
     width:30%;
-    height:300px;
+    height:100%;
     position: fixed;
-    top: 30%;
+    top: 0;
     right: 0;
     overflow-y: scroll;
     text-align: end;
@@ -36,4 +36,18 @@
     margin: 10px;
     color: #2d3436;
     text-align: end;
+  }
+
+  .navbar::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .navbar::-webkit-scrollbar-track {
+    background-color: #e4e4e4;
+    border-radius: 100px;
+  }
+  
+  .navbar::-webkit-scrollbar-thumb {
+    background-color: #2d3436;
+    border-radius: 100px;
   }

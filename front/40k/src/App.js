@@ -13,11 +13,11 @@ function App() {
   const [weaponsList, setweaponsList] = useState([])
   const [modelsList, setmodelsList] = useState([])
   const [typeSelected, settypeSelected] = useState([])
-  const [counted, setcounted] = useState([])
+  const [counter, setcounter] = useState([])
   const [list, setlist] = useState([])
   const [Cost, setCost] = useState(0)
   const [Power, setPower] = useState(0)
-  const [j, setj] = useState(1)
+  const [j, setj] = useState(0)
 
 
   
@@ -36,6 +36,35 @@ function App() {
     })
   }, [])
 
+    const  findOcc= (arr, key)=>{
+    let arr2 = [];
+    arr.forEach((x)=>{
+         
+      // Checking if there is any object in arr2
+      // which contains the key value
+       if(arr2.some((val)=>{ return val[key] === x[key] })){
+           
+         // If yes! then increase the occurrence by 1
+         arr2.forEach((k)=>{
+           if(k[key] === x[key]){ 
+             k["occurrence"]++
+           }
+        })
+           
+       }else{
+         // If not! Then create a new object initialize 
+         // it with the present iteration key's value and 
+         // set the occurrence to 1
+         let a = {}
+         a[key] = x[key]
+         a["occurrence"] = 1
+         arr2.push(a);
+        setcounter(arr2)
+        }
+    })
+      // setcounter(arr2)
+  }
+
   const addToList = (model) => {
     if (model !== "") {
       setlist(list => [...list,
@@ -43,10 +72,12 @@ function App() {
         model: model,
         id: j
       }])
-      setj(j + 1)
-      setCost(Cost + modelsList.filter(item => item.Model === model)[0].Point)
-      setPower(Power + modelsList.filter(item => item.Model === model)[0].Power)
-    }
+     
+      setCost(Cost + modelsList.filter(item => item.Model === model)[0].Point);
+      setPower(Power + modelsList.filter(item => item.Model === model)[0].Power);
+      findOcc(list, 'model')
+    } 
+    setj(j + 1)
   }
 
   const removeFromList = (id, model) => {
@@ -54,13 +85,20 @@ function App() {
     setlist(newList)
     setCost(Cost - modelsList.filter(item => item.Model === model)[0].Point)
     setPower(Power - modelsList.filter(item => item.Model === model)[0].Power)
+    findOcc(list, "model")
 
   }
 
   const exportList = (model)=>{
 
   }
-
+  const handleModal= ()=>{
+    if(document.getElementById("resume").style.display !== "flex"){
+      document.getElementById("resume").style.display = "flex"
+    } else {
+      document.getElementById("resume").style.display = "none"
+    }
+  }
   const handletypeSelected = (e) => {
     settypeSelected(e.target.value)
   }
@@ -68,6 +106,7 @@ function App() {
     setlist([])
     setCost(0)
     setPower(0)
+    setcounter([])
   }
 
   var grouped = _(modelsList).groupBy('Type').map((model, type) => ({ type: type, model: _.map(model, 'Model') })).value();
@@ -95,6 +134,10 @@ function App() {
         }
       </select>
       {/* ===================================== */}
+      <button onClick={handleModal} >Resume</button>
+      <button onClick={exportList} >Export</button>
+      <button onClick={clear}>Clear list</button> 
+
 
       {/* Affichage des figurines par rapport au type selectionné */}
 
@@ -125,6 +168,20 @@ function App() {
             />
             </div>
         {/* ============================================= */}
+      </div> 
+
+      <div className="resume" id="resume">
+     <button onClick={()=>findOcc(list, "model")}> Refresh</button>
+      {
+        counter.map((item)=>{
+          return(
+            <div className="counter" key={item.model}>
+              {item.model} apparait {item.occurrence} fois dans la liste
+            </div>
+          )
+        })
+      }
+      <button onClick={handleModal}>Close </button>
       </div>
     </div>
   );
