@@ -4,6 +4,10 @@ import React, { useState, useEffect } from "react";
 import MODEL from "./Components/model.js"
 import HEADER from './Components/Header.js'
 import Navbar from './Components/Navbar';
+import ReactExport from 'react-data-export';
+
+const ExcelFile = ReactExport.ExcelFile;
+const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
 
 const _ = require('lodash');
 
@@ -18,9 +22,22 @@ function App() {
   const [Cost, setCost] = useState(0)
   const [Power, setPower] = useState(0)
   const [j, setj] = useState(0)
-
-
   
+
+
+  const DataSet = [
+    {
+        columns: [
+            {title: "Figurines", style: {font: {sz: "18", bold: true}}, width: {wpx: 125}}, // width in pixels           
+            {title: "Nombres", style: {font: {sz: "18", bold: true}}, width: {wpx: 125}} // width in pixels           
+        ],
+        data: counter.map((data) => [
+            {value: data.model, style: {font: {sz: "14"}}},
+            {value: data.occurrence, style: {font: {sz: "14"}}},
+
+        ])
+    }
+]
 
   //Récupération des données d'armes
 
@@ -48,6 +65,7 @@ function App() {
          arr2.forEach((k)=>{
            if(k[key] === x[key]){ 
              k["occurrence"]++
+             setcounter(arr2)
            }
         })
            
@@ -62,7 +80,9 @@ function App() {
         setcounter(arr2)
         }
     })
-      // setcounter(arr2)
+      console.log(counter)
+      console.log(list)
+      setcounter(arr2)
   }
 
   const addToList = (model) => {
@@ -98,6 +118,7 @@ function App() {
     } else {
       document.getElementById("resume").style.display = "none"
     }
+    findOcc(list,'model')
   }
   const handletypeSelected = (e) => {
     settypeSelected(e.target.value)
@@ -112,7 +133,7 @@ function App() {
   var grouped = _(modelsList).groupBy('Type').map((model, type) => ({ type: type, model: _.map(model, 'Model') })).value();
 
   //==============Loading=================
-  if (weaponsList.length === 0) {
+  if (modelsList.length === 0) {
     return (
       <div>Loading ... Please wait</div>
     )
@@ -172,6 +193,11 @@ function App() {
 
       <div className="resume" id="resume">
      <button onClick={()=>findOcc(list, "model")}> Refresh</button>
+     <ExcelFile 
+      filename="army" 
+      element={<button type="button">Export Data</button>}>
+     <ExcelSheet dataSet={DataSet} name="armyList"/>
+     </ExcelFile>
       {
         counter.map((item)=>{
           return(
