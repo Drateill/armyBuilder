@@ -29,12 +29,16 @@ function App() {
     {
         columns: [
             {title: "Figurines", style: {font: {sz: "18", bold: true}}, width: {wpx: 125}}, // width in pixels           
-            {title: "Nombres", style: {font: {sz: "18", bold: true}}, width: {wpx: 125}} // width in pixels           
+            {title: "Nombres", style: {font: {sz: "18", bold: true}}, width: {wpx: 125}}, // width in pixels    
+            {title: "Cout", style: {font: {sz: "18", bold: true}}, width: {wpx: 125}}, // width in pixels        
+
+
+               
         ],
         data: counter.map((data) => [
             {value: data.model, style: {font: {sz: "14"}}},
             {value: data.occurrence, style: {font: {sz: "14"}}},
-
+            {value: modelsList.filter(item => item.Model === data.model)[0].Point*data.occurrence, style: {font: {sz: "14"}}},
         ])
     }
 ]
@@ -80,8 +84,6 @@ function App() {
         setcounter(arr2)
         }
     })
-      console.log(counter)
-      console.log(list)
       setcounter(arr2)
   }
 
@@ -98,6 +100,7 @@ function App() {
       findOcc(list, 'model')
     } 
     setj(j + 1)
+    console.log(modelsList.filter(item => item.Model === model)[0].Point);
   }
 
   const removeFromList = (id, model) => {
@@ -186,6 +189,7 @@ function App() {
             list={list}
             removeFromList={removeFromList}
             clear={clear}
+            cost={Cost}
             />
             </div>
         {/* ============================================= */}

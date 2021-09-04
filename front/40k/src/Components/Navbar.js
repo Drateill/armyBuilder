@@ -6,6 +6,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 const Navbar=(props) => {
     const list= props.list
+    const cost = props.cost
     const removeFromList=props.removeFromList
   const [scrolled,setScrolled]=React.useState(false);
 
@@ -31,6 +32,9 @@ const Navbar=(props) => {
     <header className={x.join(" ")}>  
     
         <nav className="navigation">
+          <div className ="model"> 
+          Cost : {cost}
+          </div>
                 {list.map((item)=>{
                     return(
                         <div className="model" key={item.id}>{item.model} Nombre dans la liste : {list.filter(obj=>obj.model === item).length}
