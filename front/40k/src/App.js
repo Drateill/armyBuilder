@@ -14,7 +14,6 @@ const _ = require('lodash');
 
 function App() {
 
-  const [weaponsList, setweaponsList] = useState([])
   const [modelsList, setmodelsList] = useState([])
   const [typeSelected, settypeSelected] = useState([])
   const [counter, setcounter] = useState([])
@@ -43,20 +42,14 @@ function App() {
     }
 ]
 
-  //Récupération des données d'armes
-
-  useEffect(() => {
-    Axios.get('http://192.168.0.186:3001/get/weapons').then((response) => {
-      setweaponsList(response.data)
-    })
-  }, [])
   //Récupération des données de figurines
   useEffect(() => {
     Axios.get('http://192.168.0.186:3001/get/models').then((response) => {
       setmodelsList(response.data)
     })
   }, [])
-
+ 
+  // Calcul de chaque occurence d'un même objet dans la liste
     const  findOcc= (arr, key)=>{
     let arr2 = [];
     arr.forEach((x)=>{
@@ -86,7 +79,7 @@ function App() {
     })
       setcounter(arr2)
   }
-
+// Ajout de la figurine a la liste
   const addToList = (model) => {
     if (model !== "") {
       setlist(list => [...list,
@@ -102,7 +95,7 @@ function App() {
     setj(j + 1)
     console.log(modelsList.filter(item => item.Model === model)[0].Point);
   }
-
+//Retire l'objet de la liste
   const removeFromList = (id, model) => {
     const newList = list.filter((item) => item.id !== id)
     setlist(newList)
@@ -115,6 +108,8 @@ function App() {
   const exportList = (model)=>{
 
   }
+
+  //Affiche|Cache le resumé de la liste
   const handleModal= ()=>{
     if(document.getElementById("resume").style.display !== "flex"){
       document.getElementById("resume").style.display = "flex"
@@ -123,16 +118,19 @@ function App() {
     }
     findOcc(list,'model')
   }
+  //Choix du type de figurine a afficher
   const handletypeSelected = (e) => {
     settypeSelected(e.target.value)
   }
+
+  //Vide la liste
   const clear = ()=>{
     setlist([])
     setCost(0)
     setPower(0)
     setcounter([])
   }
-
+  //Recupere les différents "type" d'objet
   var grouped = _(modelsList).groupBy('Type').map((model, type) => ({ type: type, model: _.map(model, 'Model') })).value();
 
   //==============Loading=================
