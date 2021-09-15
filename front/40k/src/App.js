@@ -5,6 +5,8 @@ import MODEL from "./Components/model.js"
 import HEADER from './Components/Header.js'
 import Navbar from './Components/Navbar';
 import ReactExport from 'react-data-export';
+import {motion, AnimatePresence} from "framer-motion"
+import Modal from './Components/modal'
 
 const ExcelFile = ReactExport.ExcelFile;
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
@@ -21,7 +23,19 @@ function App() {
   const [Cost, setCost] = useState(0)
   const [Power, setPower] = useState(0)
   const [j, setj] = useState(0)
-  
+  const [modalOpen, setmodalOpen] = useState(false)
+
+
+
+
+  const close = ()=>{
+    findOcc(list,'model')
+    setmodalOpen(false)
+  } 
+  const open = ()=> {
+    findOcc(list,'model')
+    setmodalOpen(true)
+  }
 
 
   const DataSet = [
@@ -101,13 +115,7 @@ function App() {
     setlist(newList)
     setCost(Cost - modelsList.filter(item => item.Model === model)[0].Point)
     setPower(Power - modelsList.filter(item => item.Model === model)[0].Power)
-    findOcc(list, "model")
-
-  }
-
-  const exportList = (model)=>{
-
-  }
+}
 
   //Affiche|Cache le resumé de la liste
   const handleModal= ()=>{
@@ -156,8 +164,7 @@ function App() {
         }
       </select>
       {/* ===================================== */}
-      <button onClick={handleModal} >Resume</button>
-      <button onClick={exportList} >Export</button>
+
       <button onClick={clear}>Clear list</button> 
 
 
@@ -191,27 +198,25 @@ function App() {
             />
             </div>
         {/* ============================================= */}
+        <motion.button
+      whileHover={{scale:1.1}}
+      whileTap={{scale:0.9}}
+      className="save-button"
+      onClick={()=>(modalOpen? close(): open())}
+      >
+        Sum up
+      </motion.button>
+      <AnimatePresence 
+      initial={false}
+      exitBeforeEnter={true}
+      onExitComplete={()=>null}
+      >
+{modalOpen && <Modal modalOpen={modalOpen} handleClose={close} list={counter} DataSet={DataSet}/>}
+      </AnimatePresence>
       </div> 
 
-      <div className="resume" id="resume">
-     <button onClick={()=>findOcc(list, "model")}> Refresh</button>
-     <ExcelFile 
-      filename="army" 
-      element={<button type="button">Export Data</button>}>
-     <ExcelSheet dataSet={DataSet} name="armyList"/>
-     </ExcelFile>
-      {
-        counter.map((item)=>{
-          return(
-            <div className="counter" key={item.model}>
-              {item.model} apparait {item.occurrence} fois dans la liste
-            </div>
-          )
-        })
-      }
-      <button onClick={handleModal}>Close </button>
-      </div>
     </div>
+    
   );
 }
 
