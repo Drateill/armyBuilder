@@ -4,10 +4,10 @@ const cors = require('cors')
 const mysql = require("mysql")
 
 const db = mysql.createPool({
-    host: "localhost",
-    user: "root",
-    password: '',
-    database: "test"
+    host: "drateil.ovh",
+    user: "wh40k",
+    password: '40kpass59',
+    database: "model"
 })
 
 app.use(cors());
@@ -36,22 +36,15 @@ app.get("/get/models", (req,res)=>{
         res.send(result)
     })
 })
-app.get("/get/models/:type", (req,res)=>{
+app.get("/get/models/type/:type", (req,res)=>{
     const sqlSelect='SELECT * FROM model WHERE Type="'+req.params.type+'"'
     db.query(sqlSelect, (err, result)=>{
         console.log(result)
         res.send(result)
     })
 })
-app.get("/get/models/:model/:stat", (req,res)=>{
-    const sqlSelect='SELECT '+req.params.stat+' FROM model WHERE Model = "'+req.params.model+'"'
-    db.query(sqlSelect, (err, result)=>{
-        console.log(result)
-        res.send(result)
-    })
-})
-app.get("/get/models/:id", (req,res)=>{
-    const sqlSelect='SELECT * FROM model WHERE Model ="'+req.params.id+'"'
+app.get("/get/models/model/:id", (req,res)=>{
+    const sqlSelect='SELECT * FROM model WHERE Model="'+req.params.id+'"'
     db.query(sqlSelect, (err, result)=>{
         console.log(result)
         res.send(result)
