@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const mysql = require("mysql")
-
+// test de changement pour git
 const db = mysql.createPool({
     host: "drateil.ovh",
     user: "wh40k",
