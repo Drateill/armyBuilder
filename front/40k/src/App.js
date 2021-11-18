@@ -58,7 +58,7 @@ function App() {
 
   //Récupération des données de figurines
   useEffect(() => {
-    Axios.get('http://192.168.0.186:3001/get/models').then((response) => {
+    Axios.get('http://drateil.ovh:3001/get/models').then((response) => {
       setmodelsList(response.data)
     })
   }, [])
